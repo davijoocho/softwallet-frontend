@@ -1,0 +1,113 @@
+
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px){
+
+    .root{ 
+        display: flex;
+        flex-direction: column; 
+        height: 100vh;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+}
+
+
+.root {
+ display: flex;
+ flex-direction: row;
+ height: 100vh;
+}
+
+
+.sidebar {
+    background-color: #cee6ff;
+    padding: 2vh 2.5vw;
+    width: 35vw; 
+}
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.softwallet-logo {
+    color: #FFFFFF;
+    font-size: 40vw;
+    font-size: 4vw;
+    font-family: 'Handlee', cursive;
+    letter-spacing: 0.04em;
+    text-shadow: 0px 4px 4px #909090;
+    text-decoration: none; 
+    transition: linear;
+    margin-top: 2vh;
+}
+
+.softwallet-logo:hover {
+    text-shadow: 2px 5px 5px #767676;
+}
+
+.motto {
+    font-family: 'Alice';
+    font-size: 6vh;
+    font-size: 2vw;
+    color: #FFFFFF;
+    text-shadow: 0px 3px 3px #AAAAAA;
+    margin-top: 3vh;
+    
+}
+
+.sidebar-top-image {
+    background-image: url('./signup-image1.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 31vh;
+    width: 30vw;
+    margin-top: 5.5vh;
+    margin-bottom: 5vh;
+}
+
+.sidebar-bottom-image {
+    background-image: url('./signup-image2.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 31vh;
+    width: 30vw;
+    margin-left: 10.7vw;
+    z-index: 2;
+}
+
+
+.signup-form-container {
+
+    background-color: #FFFFFF;
+    width: 65vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-form {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+    height: 75vh;
+    margin-left: 1vw;
+    margin-bottom: 6vh;
+    
+}
+
+.redirect-to-signin {
+    margin-bottom: 12vh;
+    margin-left: 42vw;
+}
+
+
+
+
