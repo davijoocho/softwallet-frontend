@@ -3,8 +3,8 @@ import {NavLink} from 'react-router-dom';
 import {CssBaseline, TextField, Button, Typography, InputAdornment, IconButton} from '@material-ui/core';
 import {ThemeProvider} from '@material-ui/core/styles'; 
 import {AccountCircleOutlined, EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons';
-import signUpTheme from './signUpTheme.js';
-import './signup.css';
+import signUpTheme from './signup-theme.js';
+import './signup-style.css';
 
 
 
@@ -21,8 +21,7 @@ const SignUp = () => {
     
 
    const handleInputChange = (prop) => (event) => {
-       setInputValues({...inputValues, [prop]: event.target.value})
-       console.log(inputValues);
+       setInputValues({...inputValues, [prop]: event.target.value});
    }
 
 

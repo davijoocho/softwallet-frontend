@@ -23,7 +23,7 @@
 
 
 .sidebar {
-    background-color: #cee6ff;
+    background-color: #c3dbff;
     padding: 2vh 2.5vw;
     width: 35vw; 
 }
@@ -60,22 +60,23 @@
 }
 
 .sidebar-top-image {
-    background-image: url('./signup-image1.svg');
+    background-image: url('./signup-top-image.svg');
     background-size: contain;
     background-repeat: no-repeat;
     height: 31vh;
     width: 30vw;
-    margin-top: 5.5vh;
-    margin-bottom: 5vh;
+    margin-top: 6vh;
+    margin-bottom: 2vh;
 }
 
 .sidebar-bottom-image {
-    background-image: url('./signup-image2.svg');
+    background-image: url('./signup-bottom-image.svg');
     background-size: contain;
     background-repeat: no-repeat;
-    height: 31vh;
-    width: 30vw;
-    margin-left: 10.7vw;
+    height: 29vh;
+    width: 33vw;
+    margin-top: 2vh;
+    margin-left: 6vw;
     z-index: 2;
 }
 
