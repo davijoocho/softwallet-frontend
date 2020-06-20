@@ -7,7 +7,7 @@ import Dashboard from './components/Dashboard/Dashboard.js';
 
 import './App.css';
 
-function App() {
+const App = () => {
   return (
   <Router> 
    <Switch> 

@@ -24,7 +24,6 @@ const SignUp = () => {
        setInputValues({...inputValues, [prop]: event.target.value});
    }
 
-
    const handleShowPassword = (event) => {
        setInputValues({... inputValues, showPassword: !inputValues.showPassword});
    }
