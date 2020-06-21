@@ -7,7 +7,6 @@ const signUpTheme = createMuiTheme({
         fontFamily: 'Alice', 
         h1:{
             fontSize:'4.5vh',
-            fontSize: '2.5vw',
             fontWeight: 'bold'
         }
     },
