@@ -40,14 +40,14 @@
     font-size: 3.5vw;
     font-family: 'Handlee', cursive;
     letter-spacing: 0.04em;
-    text-shadow: 0px 4px 4px #7D7D7D;
+    text-shadow: 0px 4px 4px #8C8C8C;
     text-decoration: none; 
     transition: linear;
     margin-top: 2vh;
 }
 
 .softwallet-logo:hover {
-    text-shadow: 2px 5px 5px #767676;
+    text-shadow: 2px 5px 5px #616161;
 }
 
 .motto {
@@ -55,7 +55,7 @@
     font-size: 6vh;
     font-size: 2vw;
     color: #FFFFFF;
-    text-shadow: 0px 3px 3px #AAAAAA;
+    text-shadow: 0px 3px 3px #A7A7A7;
     margin-top: 3vh;
     
 }
@@ -79,7 +79,6 @@
     width: 33vw;
     margin-top: 5vh;
     margin-left: 6vw;
-    z-index: 2;
 }
 
 
