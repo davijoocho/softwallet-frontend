@@ -33,7 +33,7 @@ const SignUp = () => {
    }
 
     return (
-     <div className='root'> 
+     <div className='signup-root'> 
      <CssBaseline/>
       
          <div className='sidebar'>

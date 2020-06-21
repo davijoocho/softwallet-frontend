@@ -2,7 +2,7 @@
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 812px){
 
-    .root{ 
+    .signup-root{ 
         display: flex;
         flex-direction: column; 
         height: 100vh;
@@ -15,7 +15,7 @@
 }
 
 
-.root {
+.signup-root {
  display: flex;
  flex-direction: row;
  height: 100vh;
@@ -23,7 +23,7 @@
 
 
 .sidebar {
-    background-color: #cce0ff;
+    background-color: #cae1ff;
     padding: 2vh 2.5vw;
     width: 35vw; 
 }
@@ -64,12 +64,11 @@
     background-image: url('./signup-top-image.svg');
     background-size: contain;
     background-repeat: no-repeat;
-    height: 29vh;
-    width: 28vw;
-    margin-top: 8vh;
+    height: 30vh;
+    width: 30vw;
     margin-bottom: 2vh;
-    margin-left: 2vw;
-   
+    margin-top: 3vh;
+    
 }
 
 .sidebar-bottom-image {
@@ -78,8 +77,8 @@
     background-repeat: no-repeat;
     height: 29vh;
     width: 33vw;
-    margin-top: 3vh;
-    margin-left: 3.5vw;
+    margin-top: 5vh;
+    margin-left: 6vw;
     z-index: 2;
 }
 
