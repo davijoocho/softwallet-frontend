@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {CssBaseline, TextField, Button, Typography, InputAdornment, IconButton} from '@material-ui/core';
 import {ThemeProvider} from '@material-ui/core/styles'; 
@@ -8,7 +8,7 @@ import './signup-style.css';
 
 
 
-const SignUp = () => {
+const SignUp = ({signIn, history}) => {
 
     const [inputValues, setInputValues] = useState({
         name: '', 
@@ -25,7 +25,7 @@ const SignUp = () => {
    }
 
    const handleShowPassword = (event) => {
-       setInputValues({... inputValues, showPassword: !inputValues.showPassword});
+       setInputValues({...inputValues, showPassword: !inputValues.showPassword});
    }
 
    const handleShowConfirmedPassword = (event) => {
@@ -153,7 +153,8 @@ const SignUp = () => {
             <Button 
             color='secondary' 
             size='large' 
-            variant='contained'>
+            variant='contained'
+            >
             Create Account
             </Button>
 
