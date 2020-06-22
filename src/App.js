@@ -10,11 +10,15 @@ import './App.css';
 
 const App = () => {
 
+
+
+
  const [isSignedIn, setIsSignedIn] = useState(false);
 
  const signIn = () => {
    setIsSignedIn(!isSignedIn);
  }
+
 
 
 
@@ -24,7 +28,7 @@ const App = () => {
        <Route exact path='/' component={Home}/> 
        <Route exact path='/signup' render={props => (<SignUp {...props} signIn={signIn}/>)}/>
        <Route exact path='/signin' component={SignIn}/> 
-       <ProtectedRoute component={Dashboard} isSignedIn={isSignedIn} exact path='/dashboard'/> 
+       <ProtectedRoute component={Dashboard} isSignedIn={isSignedIn} path='/dashboard'/> 
     </Switch>
   </Router>
   );

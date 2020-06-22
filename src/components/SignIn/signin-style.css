@@ -1,52 +1,33 @@
-
-
-@media only screen and (min-device-width: 320px) and (max-device-width: 812px){
-
-    .signup-root{ 
-        display: flex;
-        flex-direction: column; 
-        height: 100vh;
-    }
-
-    .sidebar {
-        display: none;
-    }
-
+.signin-root{
+    display: flex; 
+    flex-direction: row;
+    height: 100vh;
 }
 
-
-.signup-root {
- display: flex;
- flex-direction: row;
- height: 100vh;
-}
-
-
-.sidebar {
-    background-color: #cae1ff;
+.signin-sidebar{
+    background-color: #A4DDE0;
     padding: 2vh 2.5vw;
-    width: 35vw; 
+    width: 35vw;
 }
 
-.sidebar-container {
+.signin-sidebar-container {
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column; 
 }
 
 .softwallet-logo {
-    color: #FFFFFF;
+    color: #FFFFFF; 
     font-size: 38vw;
     font-size: 3.5vw;
     font-family: 'Handlee', cursive;
     letter-spacing: 0.04em;
     text-shadow: 0px 4px 4px #8C8C8C;
-    text-decoration: none; 
+    text-decoration: none;
     transition: linear;
     margin-top: 2vh;
 }
 
-.softwallet-logo:hover {
+.softwallet-logo:hover{
     text-shadow: 2px 5px 5px #616161;
 }
 
@@ -57,33 +38,30 @@
     color: #FFFFFF;
     text-shadow: 0px 3px 3px #A7A7A7;
     margin-top: 3vh;
-    
 }
 
-.sidebar-top-image {
-    background-image: url('./signup-top-image.svg');
+.signin-sidebar-top-image {
+    background-image: url('./signin-top-image.svg');
     background-size: contain;
     background-repeat: no-repeat;
     height: 30vh;
-    width: 30vw;
+    width: 26vw;
     margin-bottom: 2vh;
-    margin-top: 3vh;
+    margin-top: 6vh;
     
 }
 
-.sidebar-bottom-image {
-    background-image: url('./signup-bottom-image.svg');
+.signin-sidebar-bottom-image {
+    background-image: url('./signin-bottom-image.svg');
     background-size: contain;
     background-repeat: no-repeat;
     height: 29vh;
     width: 27vw;
-    margin-top: 5vh;
-    margin-left: 5vw;
+    margin-top: 2vh;
+    margin-left: 6vw;
 }
 
-
-.signup-form-container {
-
+.signin-form-container {
     background-color: #FFFFFF;
     width: 65vw;
     display: flex;
@@ -92,7 +70,7 @@
     align-items: center;
 }
 
-.signup-form {
+.signin-form {
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -104,11 +82,7 @@
     margin-bottom: 6vh;
 }
 
-.redirect-to-signin {
-    margin-bottom: 12vh;
-    margin-left: 42vw;
+.redirect-to-signup {
+    margin-bottom: 10vh;
+    margin-left: 42vw; 
 }
-
-
-
-

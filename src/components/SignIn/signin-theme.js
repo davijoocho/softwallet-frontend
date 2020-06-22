@@ -1,25 +1,25 @@
-
 import {createMuiTheme} from '@material-ui/core/styles';
 
 
-const signUpTheme = createMuiTheme({
+ const signInTheme = createMuiTheme({
+
     typography: {
-        fontFamily: 'Alice', 
+        fontFamily: 'Alice',
         h1:{
-            fontSize:'4.5vh',
+            fontSize: '4.5vh',
             fontWeight: 'bold'
         }
     },
     palette: {
         primary:{
-            main: '#6b63ff'
+            main: '#529c9c'
         },
         secondary:{
-            main: '#FFD0D0'
+            main: '#ffd0d0'
         }
-    }, 
+    },
 
-    overrides: {
+    overrides:{
         MuiFormControl:{
             marginNormal:{
                 marginTop: '2.75vh',
@@ -43,8 +43,7 @@ const signUpTheme = createMuiTheme({
         MuiTypography:{
             gutterBottom:{
                 marginBottom: '3vh'
-            },
-
+            }
         },
         MuiInputBase:{
             root:{
@@ -75,7 +74,9 @@ const signUpTheme = createMuiTheme({
                 fontSize: '2.2vh'
             }
         }
-    },
-});
+    }
+    
+ });
 
-export default signUpTheme;
+
+ export default signInTheme;

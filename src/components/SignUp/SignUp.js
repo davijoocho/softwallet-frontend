@@ -39,7 +39,7 @@ const SignUp = ({signIn, history}) => {
          <div className='sidebar'>
             <div className='sidebar-container'>
                <div> 
-                <NavLink to="/" className='softwallet-logo'> 
+                <NavLink to='/' className='softwallet-logo'> 
                  SoftWallet
                 </NavLink>
                </div>
