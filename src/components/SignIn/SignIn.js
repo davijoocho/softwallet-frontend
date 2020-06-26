@@ -26,7 +26,6 @@ const SignIn = ({history, isSignedIn, signIn}) => {
 
     const handleInputChange = (prop) => (event) => {
         setInputValues({...inputValues, [prop]: event.target.value});
-
     }
 
     const handleSignIn = async () => {
