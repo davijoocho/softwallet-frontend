@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {CssBaseline, TextField, Typography, Button, InputAdornment, IconButton} from '@material-ui/core';
-import {NavLink} from 'react-router-dom';
-import {ThemeProvider} from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 import {EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons'; 
 import './signin-style.css';
-import signInTheme from './signin-theme.js';
+
+
 
 const SignIn = () => {
 
@@ -24,17 +24,17 @@ const SignIn = () => {
 
     }
 
-
     return( 
+      
             <div className='signin-root'> 
                <CssBaseline/>
 
                  <div className='signin-sidebar'> 
                    <div className='signin-sidebar-container'>
                       <div> 
-                        <NavLink to='/' className='softwallet-logo'>
+                        <Link to='/' className='softwallet-logo'>
                          SoftWallet
-                        </NavLink>
+                        </Link>
                       </div>
                       <div className='motto'>
                          Take control of your personal finance today.
@@ -45,12 +45,12 @@ const SignIn = () => {
                  </div>
 
                  <main className='signin-form-container'>
-                     <ThemeProvider theme={signInTheme}>
+                   
+                
 
                      <div className='redirect-to-signup'> 
-                    <Typography variant='h6'>Not a member? <NavLink to='/signup'>Sign-Up</NavLink></Typography>
+                    <Typography variant='h6'>Not a member? <Link to='/signup'>Sign-Up</Link></Typography>
                      </div>
-
 
                      <form className='signin-form'> 
                       
@@ -58,7 +58,7 @@ const SignIn = () => {
                       variant='h1' 
                       gutterBottom={true}
                       noWrap={true}>
-                       Sign Up with SoftWallet
+                       Sign In to SoftWallet
                       </Typography>
 
                       <TextField 
@@ -68,7 +68,7 @@ const SignIn = () => {
                       label='Email' 
                       required={true}
                       fullWidth={true} 
-                      placeholder='Enter Your Email Here'
+                      placeholder='Enter Your Email'
                       onChange={handleInputChange('email')}
                       InputProps={{
                         startAdornment: 
@@ -86,7 +86,7 @@ const SignIn = () => {
                       label='Password' 
                       required={true}
                       fullWidth={true}
-                      placeholder='Enter Your Password Here'
+                      placeholder='Enter Your Password'
                       type={inputValues.showPassword ? 'text' : 'password'}
                       onChange={handleInputChange('password')}
                       InputProps={{
@@ -107,17 +107,21 @@ const SignIn = () => {
                       <Button
                       color='secondary'
                       size='large'
-                      variant='contained'>
+                      variant='contained'
+                      >
                        Sign In
                       </Button>
                      </form>
-                     </ThemeProvider>
+                  
+            
                  </main>
- 
 
             </div>
+          
     );
     
 }
+
+
 
 export default SignIn; 
