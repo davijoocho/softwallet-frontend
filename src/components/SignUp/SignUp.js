@@ -3,12 +3,13 @@ import {Link} from 'react-router-dom';
 import {CssBaseline, TextField, Button, Typography, InputAdornment, IconButton} from '@material-ui/core';
 import {AccountCircleOutlined, EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons';
 import './signup-style.css';
-
+import {ThemeProvider} from '@material-ui/core/styles';
+import signUpTheme from './signup-theme';
 
 
 const SignUp = ({signIn, isSignedIn, history}) => {
 
-    const [inputValues, setInputValues] = useState({
+   const [inputValues, setInputValues] = useState({
         name: '', 
         email: '',
         password: '',
@@ -17,49 +18,53 @@ const SignUp = ({signIn, isSignedIn, history}) => {
         showConfirmedPassword: false
     });
 
+   const [signUpStatus, setSignUpStatus] = useState(null);
 
-    useEffect(() => {
-        console.log(isSignedIn);
-    })
+   const {name, email, password, confirmedPassword, showPassword, showConfirmedPassword} = inputValues;
+
+    
    const handleInputChange = (prop) => (event) => {
        setInputValues({...inputValues, [prop]: event.target.value});
    }
 
+
    const handleShowPassword = (event) => {
-       setInputValues({...inputValues, showPassword: !inputValues.showPassword});
+       setInputValues({...inputValues, showPassword: !showPassword});
    }
 
+
    const handleShowConfirmedPassword = (event) => {
-       setInputValues({...inputValues, showConfirmedPassword: !inputValues.showConfirmedPassword});
+       setInputValues({...inputValues, showConfirmedPassword: !showConfirmedPassword});
    }
+
 
    const handleCreateAccount = async () => {
 
     try{
-
+        if(password === confirmedPassword) {
        let response = await fetch('http://localhost:3000/signup', {
            method: 'post',
            headers: {'Content-Type': 'application/json'}, 
            body: JSON.stringify({
-               name: inputValues.name,
-               email: inputValues.email,
-               password: inputValues.password
+               name: name,
+               email: email,
+               password: password 
            })
        });
 
        let user = await response.json();
 
-       console.log(user);
-
-       if(user.name === inputValues.name) {
+       if(user.name === name) {
             signIn(true);
             history.push('./dashboard');
+       } else {
+           setSignUpStatus(false);
        }
+    } 
 
     } catch (err) {
-        console.log(err); 
+        console.log(err);
     }
-
    }
 
 
@@ -87,22 +92,32 @@ const SignUp = ({signIn, isSignedIn, history}) => {
 
          <main className='signup-form-container'> 
 
-         
-             
+         <ThemeProvider theme={signUpTheme}>
+
            <div className='redirect-to-signin'> 
            <Typography variant='h6'>Already a member? <Link to='/signin'>Sign-In</Link></Typography>
            </div>
-
+     
            <form className='signup-form'> 
 
             <Typography 
             variant='h1' 
             gutterBottom={true}
-            noWrap={true}>
+            >
             Sign Up with SoftWallet
             </Typography>
 
             <TextField 
+            error={
+                signUpStatus === false ? 
+                true :
+                false
+            }
+            helperText={
+                signUpStatus === false ?
+                'Unsuccessful Attempt. Try Again.':
+                ''
+            }
             margin='normal'
             color='primary' 
             label='Name' 
@@ -120,6 +135,16 @@ const SignUp = ({signIn, isSignedIn, history}) => {
             />
 
             <TextField 
+            error={
+                signUpStatus === false ?
+                true :
+                false
+            }
+            helperText={
+                signUpStatus === false ?
+                'Unsuccessful Attempt. Try Again.':
+                ''
+            }
             margin='normal'
             color='primary' 
             label='Email' 
@@ -138,13 +163,23 @@ const SignUp = ({signIn, isSignedIn, history}) => {
 
             <TextField 
             error={
-                inputValues.confirmedPassword !== inputValues.password ?
+                confirmedPassword !== password ?
                 true :
                 false
             }
             helperText={
-                inputValues.confirmedPassword !== inputValues.password ?
+                confirmedPassword !== password ?
                 'Passwords Do Not Match' :
+                ''
+            }
+            error={
+                signUpStatus === false ?
+                true :
+                false
+            }
+            helperText={
+                signUpStatus === false ?
+                'Unsuccessful Attempt. Try Again.':
                 ''
             }
             margin='normal'
@@ -154,7 +189,7 @@ const SignUp = ({signIn, isSignedIn, history}) => {
             fullWidth={true} 
             variant='outlined' 
             placeholder='Enter Your Password'
-            type={inputValues.showPassword ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             onChange={handleInputChange('password')}
             InputProps={{
                 startAdornment:
@@ -164,7 +199,7 @@ const SignUp = ({signIn, isSignedIn, history}) => {
                 endAdornment: 
                 <InputAdornment position='end'>
                     <IconButton onClick={handleShowPassword}>
-                      {inputValues.showPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/> }
+                      {showPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/> }
                     </IconButton>
                 </InputAdornment>
             }}
@@ -172,12 +207,12 @@ const SignUp = ({signIn, isSignedIn, history}) => {
 
             <TextField 
             error={
-                inputValues.confirmedPassword !== inputValues.password ?
+                confirmedPassword !== password ?
                 true :
                 false
             }
             helperText={
-                inputValues.confirmedPassword !== inputValues.password ?
+                confirmedPassword !== password ?
                 'Passwords Do Not Match' :
                 ''
             }
@@ -188,7 +223,7 @@ const SignUp = ({signIn, isSignedIn, history}) => {
             fullWidth={true} 
             variant='outlined' 
             placeholder='Confirm Your Password'
-            type={inputValues.showConfirmedPassword ? 'text' : 'password'}
+            type={showConfirmedPassword ? 'text' : 'password'}
             onChange={handleInputChange('confirmedPassword')}
             InputProps={{
                 startAdornment:
@@ -198,12 +233,11 @@ const SignUp = ({signIn, isSignedIn, history}) => {
                 endAdornment: 
                 <InputAdornment position='end'>
                     <IconButton onClick={handleShowConfirmedPassword}>
-                        {inputValues.showConfirmedPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/>} 
+                        {showConfirmedPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/>} 
                     </IconButton>
                 </InputAdornment>
             }}
             />
-
 
             <Button 
             color='secondary' 
@@ -214,17 +248,16 @@ const SignUp = ({signIn, isSignedIn, history}) => {
             Create Account
             </Button>
 
-           </form>
+           </form> 
 
-        
-
+           </ThemeProvider>
          </main>
       </div>
-      
+     
     );
-
-
  }
+
+
 
  export default SignUp;
 

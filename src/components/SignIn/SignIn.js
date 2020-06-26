@@ -3,19 +3,25 @@ import {CssBaseline, TextField, Typography, Button, InputAdornment, IconButton} 
 import {NavLink} from 'react-router-dom';
 import {EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons'; 
 import './signin-style.css';
+import signInTheme from './signin-theme';
+import {ThemeProvider} from '@material-ui/core/styles';
 
 
-const SignIn = () => {
+
+const SignIn = ({history, isSignedIn, signIn}) => {
 
     const [inputValues, setInputValues] = useState({
         email:'',
         password:'',
         showPassword: false
     });
+
+    const [signInStatus, setSignInStatus] = useState(null);
+
+    const {email, password, showPassword} = inputValues;
     
     const handleShowPassword = (event) => {
-        setInputValues({...inputValues, showPassword: !inputValues.showPassword})
-        console.log(inputValues.showPassword);
+        setInputValues({...inputValues, showPassword: !showPassword})
     }
 
     const handleInputChange = (prop) => (event) => {
@@ -23,8 +29,37 @@ const SignIn = () => {
 
     }
 
+    const handleSignIn = async () => {
+
+      try {
+        let response = await fetch('http://localhost:3000/signin', {
+          method: 'post', 
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            email: email,
+            password: password
+          })
+        });
+
+        let verification = await response.json();
+
+        if(verification === 'sign in successful') {
+          signIn(true);
+          history.push('/dashboard');
+        } else {
+          setSignInStatus(false);
+        }
+        
+      } catch (err) {
+
+        console.log(err);
+
+      }
+    }
+
 
     return( 
+    
             <div className='signin-root'> 
                <CssBaseline/>
 
@@ -44,22 +79,39 @@ const SignIn = () => {
                  </div>
 
                  <main className='signin-form-container'>
-                     
+                    
+                    <ThemeProvider theme={signInTheme}>
                      <div className='redirect-to-signup'> 
                     <Typography variant='h6'>Not a member? <NavLink to='/signup'>Sign-Up</NavLink></Typography>
                      </div>
+                    
 
+                    
 
                      <form className='signin-form'> 
                       
                       <Typography
                       variant='h1' 
                       gutterBottom={true}
-                      noWrap={true}>
-                       Sign Up with SoftWallet
+                      >
+                       Sign In to SoftWallet
                       </Typography>
 
                       <TextField 
+                      error={
+                        signInStatus === false ?
+
+                        true :
+
+                        false
+                      }
+                      helperText={
+                        signInStatus === false ?
+
+                        'Sign In Unsuccessful. Try Again.' :
+
+                        ''
+                      }
                       variant='outlined'
                       margin='normal'
                       color='primary' 
@@ -78,6 +130,20 @@ const SignIn = () => {
                       </TextField>
 
                       <TextField 
+                      error={
+                        signInStatus === false ?
+
+                        true :
+
+                        false
+                      }
+                      helperText={
+                        signInStatus === false ?
+
+                        'Sign In Unsuccessful. Try Again' :
+
+                        ''
+                      }
                       variant='outlined'
                       margin='normal'
                       color='primary' 
@@ -85,7 +151,7 @@ const SignIn = () => {
                       required={true}
                       fullWidth={true}
                       placeholder='Enter Your Password Here'
-                      type={inputValues.showPassword ? 'text' : 'password'}
+                      type={showPassword ? 'text' : 'password'}
                       onChange={handleInputChange('password')}
                       InputProps={{
                           startAdornment: 
@@ -95,7 +161,7 @@ const SignIn = () => {
                            endAdornment:
                             <InputAdornment position='end'>
                                 <IconButton onClick={handleShowPassword}>
-                                {inputValues.showPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/>}
+                                {showPassword ? <VisibilityOutlined/> : <VisibilityOffOutlined/>}
                                 </IconButton>
                             </InputAdornment>
                       }}
@@ -105,15 +171,21 @@ const SignIn = () => {
                       <Button
                       color='secondary'
                       size='large'
-                      variant='contained'>
+                      variant='contained'
+                      onClick={handleSignIn}
+                      >
                        Sign In
                       </Button>
+
                      </form>
-                    
+
+                                 
+                     </ThemeProvider>
                  </main>
  
 
             </div>
+          
     );
     
 }
