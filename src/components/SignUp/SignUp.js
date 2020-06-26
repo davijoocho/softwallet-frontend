@@ -1,14 +1,12 @@
-import React, {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import {CssBaseline, TextField, Button, Typography, InputAdornment, IconButton} from '@material-ui/core';
-import {ThemeProvider} from '@material-ui/core/styles'; 
 import {AccountCircleOutlined, EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons';
-import signUpTheme from './signup-theme.js';
 import './signup-style.css';
 
 
 
-const SignUp = ({signIn, history}) => {
+const SignUp = ({signIn, isSignedIn, history}) => {
 
     const [inputValues, setInputValues] = useState({
         name: '', 
@@ -18,8 +16,11 @@ const SignUp = ({signIn, history}) => {
         showPassword: false,
         showConfirmedPassword: false
     });
-    
 
+
+    useEffect(() => {
+        console.log(isSignedIn);
+    })
    const handleInputChange = (prop) => (event) => {
        setInputValues({...inputValues, [prop]: event.target.value});
    }
@@ -32,6 +33,36 @@ const SignUp = ({signIn, history}) => {
        setInputValues({...inputValues, showConfirmedPassword: !inputValues.showConfirmedPassword});
    }
 
+   const handleCreateAccount = async () => {
+
+    try{
+
+       let response = await fetch('http://localhost:3000/signup', {
+           method: 'post',
+           headers: {'Content-Type': 'application/json'}, 
+           body: JSON.stringify({
+               name: inputValues.name,
+               email: inputValues.email,
+               password: inputValues.password
+           })
+       });
+
+       let user = await response.json();
+
+       console.log(user);
+
+       if(user.name === inputValues.name) {
+            signIn(true);
+            history.push('./dashboard');
+       }
+
+    } catch (err) {
+        console.log(err); 
+    }
+
+   }
+
+
     return (
      <div className='signup-root'> 
      <CssBaseline/>
@@ -39,9 +70,9 @@ const SignUp = ({signIn, history}) => {
          <div className='sidebar'>
             <div className='sidebar-container'>
                <div> 
-                <NavLink to='/' className='softwallet-logo'> 
+                <Link to='/' className='softwallet-logo'> 
                  SoftWallet
-                </NavLink>
+                </Link>
                </div>
                <div> 
                 <div className='motto'>
@@ -53,14 +84,17 @@ const SignUp = ({signIn, history}) => {
             </div> 
          </div>     
 
-         <main className='signup-form-container'> 
-          <ThemeProvider theme={signUpTheme}> 
 
+         <main className='signup-form-container'> 
+
+         
+             
            <div className='redirect-to-signin'> 
-           <Typography variant='h6'>Already a member? <NavLink to='/signin'>Sign-In</NavLink></Typography>
+           <Typography variant='h6'>Already a member? <Link to='/signin'>Sign-In</Link></Typography>
            </div>
 
            <form className='signup-form'> 
+
             <Typography 
             variant='h1' 
             gutterBottom={true}
@@ -103,6 +137,16 @@ const SignUp = ({signIn, history}) => {
             />
 
             <TextField 
+            error={
+                inputValues.confirmedPassword !== inputValues.password ?
+                true :
+                false
+            }
+            helperText={
+                inputValues.confirmedPassword !== inputValues.password ?
+                'Passwords Do Not Match' :
+                ''
+            }
             margin='normal'
             color='primary' 
             label='Password' 
@@ -127,6 +171,16 @@ const SignUp = ({signIn, history}) => {
             />
 
             <TextField 
+            error={
+                inputValues.confirmedPassword !== inputValues.password ?
+                true :
+                false
+            }
+            helperText={
+                inputValues.confirmedPassword !== inputValues.password ?
+                'Passwords Do Not Match' :
+                ''
+            }
             margin='normal'
             color='primary' 
             label='Confirm Password' 
@@ -150,19 +204,23 @@ const SignUp = ({signIn, history}) => {
             }}
             />
 
+
             <Button 
             color='secondary' 
             size='large' 
             variant='contained'
+            onClick={handleCreateAccount}
             >
             Create Account
             </Button>
 
            </form>
-          </ThemeProvider>
+
+        
+
          </main>
       </div>
-     
+      
     );
 
 
