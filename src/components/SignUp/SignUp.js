@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {CssBaseline, TextField, Button, Typography, InputAdornment, IconButton} from '@material-ui/core';
 import {AccountCircleOutlined, EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons';
@@ -7,7 +7,7 @@ import {ThemeProvider} from '@material-ui/core/styles';
 import signUpTheme from './signup-theme';
 
 
-const SignUp = ({signIn, isSignedIn, history}) => {
+const SignUp = ({signIn, history, setUserProfile}) => {
 
    const [inputValues, setInputValues] = useState({
         name: '', 
@@ -27,16 +27,13 @@ const SignUp = ({signIn, isSignedIn, history}) => {
        setInputValues({...inputValues, [prop]: event.target.value});
    }
 
-
    const handleShowPassword = (event) => {
        setInputValues({...inputValues, showPassword: !showPassword});
    }
 
-
    const handleShowConfirmedPassword = (event) => {
        setInputValues({...inputValues, showConfirmedPassword: !showConfirmedPassword});
    }
-
 
    const handleCreateAccount = async () => {
 
@@ -57,6 +54,8 @@ const SignUp = ({signIn, isSignedIn, history}) => {
        if(user.name === name) {
             signIn(true);
             history.push('./dashboard');
+            setUserProfile({name: name, email: email});
+
        } else {
            setSignUpStatus(false);
        }
@@ -65,6 +64,7 @@ const SignUp = ({signIn, isSignedIn, history}) => {
     } catch (err) {
         console.log(err);
     }
+
    }
 
 
@@ -163,24 +163,20 @@ const SignUp = ({signIn, isSignedIn, history}) => {
 
             <TextField 
             error={
-                confirmedPassword !== password ?
+                signUpStatus === false || confirmedPassword !== password ?
                 true :
                 false
             }
             helperText={
-                confirmedPassword !== password ?
-                'Passwords Do Not Match' :
-                ''
-            }
-            error={
-                signUpStatus === false ?
-                true :
-                false
-            }
-            helperText={
-                signUpStatus === false ?
-                'Unsuccessful Attempt. Try Again.':
-                ''
+                confirmedPassword !== password ? 
+
+                 'Passwords Do Not Match' :
+
+                 signUpStatus === false ?
+
+                 'Unsuccessful Attempt. Try Again.':
+
+                 ''
             }
             margin='normal'
             color='primary' 
