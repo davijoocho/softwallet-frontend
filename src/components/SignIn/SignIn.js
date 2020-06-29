@@ -8,7 +8,7 @@ import {ThemeProvider} from '@material-ui/core/styles';
 
 
 
-const SignIn = ({history, isSignedIn, signIn}) => {
+const SignIn = ({history, signIn, setUserProfile}) => {
 
     const [inputValues, setInputValues] = useState({
         email:'',
@@ -41,13 +41,20 @@ const SignIn = ({history, isSignedIn, signIn}) => {
           })
         });
 
-        let verification = await response.json();
+        const verification = await response.json()
 
-        if(verification === 'sign in successful') {
+        if(verification.name) {
+
           signIn(true);
+
           history.push('/dashboard');
+
+          setUserProfile({name: verification.name, email: email}); 
+
         } else {
+
           setSignInStatus(false);
+
         }
         
       } catch (err) {
