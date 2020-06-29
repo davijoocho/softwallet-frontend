@@ -13,7 +13,11 @@ const App = () => {
 
  const [isSignedIn, setIsSignedIn] = useState(false);
 
-   
+ const [userProfile, setUserProfile] = useState({
+   name: '',
+   email: '' 
+ });
+
 
   return (
   <Router> 
@@ -21,11 +25,15 @@ const App = () => {
 
        <Route exact path='/' component={Home}/> 
   
-       <Route exact path='/signup' render={props => (<SignUp {...props} signIn={setIsSignedIn} isSignedIn={isSignedIn}/>)}/>
+       <Route 
+       exact path='/signup' 
+       render={props => (<SignUp {...props} setUserProfile={setUserProfile} signIn={setIsSignedIn} />)}/>
 
-       <Route exact path='/signin' render={props => (<SignIn {...props} signIn={setIsSignedIn} isSignedIn={isSignedIn}/>)}/>
+       <Route 
+       exact path='/signin' 
+       render={props => (<SignIn {...props} setUserProfile={setUserProfile} signIn={setIsSignedIn} />)}/>
 
-       <ProtectedRoute component={Dashboard} isSignedIn={isSignedIn} path='/dashboard'/> 
+       <ProtectedRoute component={Dashboard} isSignedIn={isSignedIn} exact path='/dashboard'/> 
 
     </Switch>
   </Router>
