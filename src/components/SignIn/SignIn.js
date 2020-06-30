@@ -3,8 +3,7 @@ import {CssBaseline, TextField, Typography, Button, InputAdornment, IconButton} 
 import {NavLink} from 'react-router-dom';
 import {EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons'; 
 import './signin-style.css';
-import signInTheme from './signin-theme';
-import {ThemeProvider} from '@material-ui/core/styles';
+
 
 
 
@@ -87,7 +86,7 @@ const SignIn = ({history, signIn, setUserProfile}) => {
 
                  <main className='signin-form-container'>
                     
-                    <ThemeProvider theme={signInTheme}>
+                  
                      <div className='redirect-to-signup'> 
                     <Typography variant='h6'>Not a member? <NavLink to='/signup'>Sign-Up</NavLink></Typography>
                      </div>
@@ -187,7 +186,7 @@ const SignIn = ({history, signIn, setUserProfile}) => {
                      </form>
 
                                  
-                     </ThemeProvider>
+                     
                  </main>
  
 

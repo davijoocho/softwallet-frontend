@@ -3,9 +3,6 @@ import {Link} from 'react-router-dom';
 import {CssBaseline, TextField, Button, Typography, InputAdornment, IconButton} from '@material-ui/core';
 import {AccountCircleOutlined, EmailOutlined, LockOutlined, VisibilityOffOutlined, VisibilityOutlined} from '@material-ui/icons';
 import './signup-style.css';
-import {ThemeProvider} from '@material-ui/core/styles';
-import signUpTheme from './signup-theme';
-
 
 const SignUp = ({signIn, history, setUserProfile}) => {
 
@@ -38,7 +35,7 @@ const SignUp = ({signIn, history, setUserProfile}) => {
    const handleCreateAccount = async () => {
 
     try{
-        if(password === confirmedPassword) {
+        if (password === confirmedPassword) {
        let response = await fetch('http://localhost:3000/signup', {
            method: 'post',
            headers: {'Content-Type': 'application/json'}, 
@@ -92,7 +89,7 @@ const SignUp = ({signIn, history, setUserProfile}) => {
 
          <main className='signup-form-container'> 
 
-         <ThemeProvider theme={signUpTheme}>
+       
 
            <div className='redirect-to-signin'> 
            <Typography variant='h6'>Already a member? <Link to='/signin'>Sign-In</Link></Typography>
@@ -245,8 +242,6 @@ const SignUp = ({signIn, history, setUserProfile}) => {
             </Button>
 
            </form> 
-
-           </ThemeProvider>
          </main>
       </div>
      

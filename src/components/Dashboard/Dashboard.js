@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-const Dashboard = () => {
+const Dashboard = ({userProfile}) => {
+
+
+    useEffect(() => {
+        console.log(userProfile);
+    })
 
     return (
         <h1>Dashboard</h1>
