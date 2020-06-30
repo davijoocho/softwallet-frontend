@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-const Dashboard = ({userProfile}) => {
+const Dashboard = () => {
 
-
-    useEffect(() => {
-        console.log(userProfile);
-    })
 
     return (
-        <h1>Dashboard</h1>
+        <div>
+
+        <h1> Dashboard</h1>
+
+
+        </div>
     );
     
 }
