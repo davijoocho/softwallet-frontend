@@ -1,0 +1,32 @@
+.dashboard-root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.app-bar {
+    height: 7vh;
+    width: 100vw;
+}
+
+.content-page-container {
+    display: flex;
+    flex-direction: row;
+    height: 93.5vh;
+    width: 100vw;
+}
+
+.dashboard-drawer {
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+}
+
+
+.content-page{
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+    justify-content: center;
+    align-items: center;
+}
