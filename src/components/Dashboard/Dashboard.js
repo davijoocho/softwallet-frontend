@@ -4,7 +4,7 @@ import {AccountBalance, AttachMoney, HomeWork, CreditCard, AccountBalanceWallet}
 
 const Dashboard = ({history}) => {
 
-    const [selectedText, setSelectedText] = useState('Summary');
+    const [selectedTab, setSelectedTab] = useState('Summary');
 
 
     const categoriesList = [
@@ -13,7 +13,7 @@ const Dashboard = ({history}) => {
             icon: <AccountBalance/>,
             onClick: () => {
                 history.push('/dashboard')
-                setSelectedText('Summary')
+                setSelectedTab('Summary')
             }
         },
         {
@@ -21,7 +21,7 @@ const Dashboard = ({history}) => {
             icon: <AttachMoney/>,
             onClick: () => {
                 history.push('/dashboard/income')
-                setSelectedText('Income')
+                setSelectedTab('Income')
             }
         },
         {
@@ -29,7 +29,7 @@ const Dashboard = ({history}) => {
             icon: <HomeWork/>,
             onClick: () => {
                 history.push('/dashboard/assets')
-                setSelectedText('Assets')
+                setSelectedTab('Assets')
             }
         },
         {
@@ -37,7 +37,7 @@ const Dashboard = ({history}) => {
             icon: <CreditCard/>,
             onClick: () => {
                 history.push('/dashboard/liabilities')
-                setSelectedText('Liabilities')
+                setSelectedTab('Liabilities')
             }
         },
         {
@@ -45,7 +45,7 @@ const Dashboard = ({history}) => {
             icon: <AccountBalanceWallet/>,
             onClick: () => {
                 history.push('/dashboard/expenses')
-                setSelectedText('Expenses')
+                setSelectedTab('Expenses')
             }
         }
     ]
@@ -61,7 +61,7 @@ const Dashboard = ({history}) => {
                         const {text, icon, onClick} = item;
 
                         return (
-                        <ListItem selected={ text === selectedText ? true : false } onClick={onClick} button={true}>
+                        <ListItem selected={ text === selectedTab ? true : false } onClick={onClick} button={true} key={text}>
                             <ListItemIcon>{icon}</ListItemIcon>
                             <ListItemText primary={text}/>
                         </ListItem>

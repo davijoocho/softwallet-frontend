@@ -33,8 +33,16 @@ const dashboardTheme = createMuiTheme({
             }
         },
         Mui: {
-            selected: {
+            root: {
+                $selected: {
                 backgroundColor: '#D6D6D6'
+            }
+        }
+        },
+        MuiTableContainer: {
+            root: {
+                width: '100%',
+                height: 'fit-content',
             }
         }
 
