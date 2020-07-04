@@ -7,7 +7,10 @@
 .app-bar {
     height: 7vh;
     width: 100vw;
+    display: flex;
+    flex-direction: row; 
 }
+
 
 .content-page-container {
     display: flex;

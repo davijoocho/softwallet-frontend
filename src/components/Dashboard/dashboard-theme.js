@@ -4,14 +4,14 @@ const dashboardTheme = createMuiTheme({
 
     overrides: {
 
-
-
         MuiAppBar: {
             root: {
                 height: '7vh',
                 alignItems: 'center',
                 flexDirection: 'row',
-                justifyContent: 'space-around'
+                justifyContent: 'space-between',
+                paddingLeft: '2vw',
+                paddingRight: '2vw'
             }
         },
         MuiDrawer: {

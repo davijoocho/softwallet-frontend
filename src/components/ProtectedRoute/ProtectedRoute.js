@@ -1,11 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route, Redirect} from 'react-router-dom';
 
 
 
 
  
-const ProtectedRoute = ({component: Component, isSignedIn, userProfile, ...rest}) => {
+const ProtectedRoute = ({component: Component, isSignedIn, signIn, userProfile, ...rest}) => {
+
+    useEffect(()=> {
+        console.log(isSignedIn);
+    })
 
    const [transactionList, setTransactionList] = useState([
     {
@@ -70,7 +74,7 @@ const ProtectedRoute = ({component: Component, isSignedIn, userProfile, ...rest}
         transaction_name: 'Job',
         transaction_type: 'Income',
         description: 'paycheck from work',
-        amount: -10004
+        amount: 10004
     },
     {
         id:9,
@@ -117,7 +121,7 @@ const ProtectedRoute = ({component: Component, isSignedIn, userProfile, ...rest}
     return( 
            <Route {...rest} render={props => (
             isSignedIn === true ?
-            <Component {...props} transactionList={transactionList}/> :
+            <Component {...props} transactionList={transactionList} signIn={signIn}/> :
             <Redirect to='/signin'/>
          )}/>
         

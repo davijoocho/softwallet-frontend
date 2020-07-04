@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Home from './components/Home/Home.js';
 import SignUp from './components/SignUp/SignUp.js';
@@ -8,12 +8,14 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.js';
 import {ThemeProvider} from '@material-ui/core/styles';
 import signUpTheme from './components/SignUp/signup-theme';
 import signInTheme from './components/SignIn/signin-theme';
-import dashboardTheme from './components/ProtectedRoute/dashboard-theme.js';
+import dashboardTheme from './components/Dashboard/dashboard-theme.js';
 
 
 import './App.css';
 
 const App = () => {
+
+  {/* Change isSignedIn to false after development */}
 
  const [isSignedIn, setIsSignedIn] = useState(true);
 
@@ -21,6 +23,11 @@ const App = () => {
    name: '',
    email: '' 
  });
+
+ useEffect(() => {
+   console.log(isSignedIn);
+ }, [isSignedIn])
+
 
 
   return (
@@ -32,7 +39,7 @@ const App = () => {
 <React.Fragment>
 
       <ThemeProvider theme={dashboardTheme}>
-      <ProtectedRoute component={Dashboard} userProfile={userProfile} isSignedIn={isSignedIn} path='/dashboard'/> 
+      <ProtectedRoute component={Dashboard} userProfile={userProfile} isSignedIn={isSignedIn} signIn={setIsSignedIn} path='/dashboard'/> 
 
        <ThemeProvider theme={signInTheme}> 
        <Route 

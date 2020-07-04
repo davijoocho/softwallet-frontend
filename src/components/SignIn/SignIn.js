@@ -59,6 +59,7 @@ const SignIn = ({history, signIn, setUserProfile}) => {
       } catch (err) {
 
         console.log(err);
+        setSignInStatus(false);
 
       }
     }
@@ -91,9 +92,6 @@ const SignIn = ({history, signIn, setUserProfile}) => {
                     <Typography variant='h6'>Not a member? <NavLink to='/signup'>Sign-Up</NavLink></Typography>
                      </div>
                     
-
-                    
-
                      <form className='signin-form'> 
                       
                       <Typography
