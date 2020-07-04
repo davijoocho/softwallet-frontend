@@ -1,18 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
-import {Drawer, List, ListItem, ListItemIcon, ListItemText, CssBaseline, AppBar, Typography} from '@material-ui/core';
+import {Drawer, List, ListItem, ListItemIcon, ListItemText, CssBaseline, AppBar, Typography, Button} from '@material-ui/core';
 import {AccountBalance, AttachMoney, HomeWork, CreditCard, AccountBalanceWallet} from '@material-ui/icons';
 import Summary from '../Summary/Summary.js';
 import Income from '../Income/Income.js';
 import Assets from '../Assets/Assets.js';
 import Liabilities from '../Liabilities/Liabilities.js';
 import Expenses from '../Expenses/Expenses.js';
-import '../ProtectedRoute/dashboard.css';
+import './dashboard.css';
 
-const Dashboard = ({history, transactionList}) => {
+const Dashboard = ({history, transactionList, signIn}) => {
 
     const [selectedTab, setSelectedTab] = useState('Summary');
-
 
     const categoriesList = [
         {
@@ -66,6 +65,17 @@ const Dashboard = ({history, transactionList}) => {
             <nav className='app-bar'>
             <AppBar position='fixed'>
             <Typography variant='h4'>Dashboard</Typography>
+            <Button
+                color='secondary'
+                size='medium'
+                variant='contained'
+                onClick={() => {
+                    history.push('/signin');
+                    signIn(false);
+                  }}
+            >
+             Sign Out
+            </Button>
             </AppBar>
             </nav>
 
