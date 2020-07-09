@@ -24,37 +24,34 @@ const App = () => {
    email: '' 
  });
 
- useEffect(() => {
-   console.log(isSignedIn);
- }, [isSignedIn])
-
-
-
   return (
   <Router> 
    <Switch> 
 
       <Route exact path='/' component={Home}/> 
 
-<React.Fragment>
+      <React.Fragment>
 
       <ThemeProvider theme={dashboardTheme}>
-      <ProtectedRoute component={Dashboard} userProfile={userProfile} isSignedIn={isSignedIn} signIn={setIsSignedIn} path='/dashboard'/> 
+      <ProtectedRoute component={Dashboard} u
+      serProfile={userProfile} isSignedIn={isSignedIn} signIn={setIsSignedIn} 
+      userProfile={userProfile} path='/dashboard'/> 
 
-       <ThemeProvider theme={signInTheme}> 
-       <Route 
-        exact path='/signin' 
-        render={props => (<SignIn {...props} setUserProfile={setUserProfile} signIn={setIsSignedIn} />)}/>
+      <ThemeProvider theme={signInTheme}> 
+      <Route 
+      exact path='/signin' 
+      render={props => (<SignIn {...props} setUserProfile={setUserProfile} signIn={setIsSignedIn} />)}/>
 
-       <ThemeProvider theme={signUpTheme}>
-        <Route 
-         exact path='/signup' 
-         render={props => (<SignUp {...props} setUserProfile={setUserProfile} signIn={setIsSignedIn} />)}/>
+      <ThemeProvider theme={signUpTheme}>
+      <Route 
+      exact path='/signup' 
+      render={props => (<SignUp {...props} setUserProfile={setUserProfile} signIn={setIsSignedIn} />)}/>
 
       </ThemeProvider>
       </ThemeProvider>
       </ThemeProvider>
-  </React.Fragment>
+
+      </React.Fragment>
 
     </Switch>
   </Router>

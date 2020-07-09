@@ -36,7 +36,7 @@ const SignUp = ({signIn, history, setUserProfile}) => {
 
     try{
         if (password === confirmedPassword) {
-       let response = await fetch('http://localhost:3000/signup', {
+           let response = await fetch('http://localhost:3000/signup', {
            method: 'post',
            headers: {'Content-Type': 'application/json'}, 
            body: JSON.stringify({
@@ -160,20 +160,16 @@ const SignUp = ({signIn, history, setUserProfile}) => {
 
             <TextField 
             error={
-                signUpStatus === false || confirmedPassword !== password ?
-                true :
-                false
+             signUpStatus === false || confirmedPassword !== password ?
+             true :
+             false
             }
             helperText={
-                confirmedPassword !== password ? 
-
-                 'Passwords Do Not Match' :
-
-                 signUpStatus === false ?
-
-                 'Unsuccessful Attempt. Try Again.':
-
-                 ''
+            confirmedPassword !== password ? 
+             'Passwords Do Not Match' :
+            signUpStatus === false ?
+             'Unsuccessful Attempt. Try Again.':
+             ''
             }
             margin='normal'
             color='primary' 

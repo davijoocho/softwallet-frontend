@@ -2,6 +2,12 @@ import {createMuiTheme} from '@material-ui/core/styles';
 
 const dashboardTheme = createMuiTheme({
 
+    typography: {
+        h5: {
+            marginLeft: '2vw'
+        }
+    },
+
     overrides: {
 
         MuiAppBar: {
@@ -43,6 +49,26 @@ const dashboardTheme = createMuiTheme({
             root: {
                 width: '100%',
                 height: 'fit-content',
+                marginBottom: '20vh',
+                marginTop:'2vh'
+            }
+        },
+        MuiFormControl: {
+            root: {
+                margin: '2vh 2vw',
+                height:'8vh'
+            }
+        }, 
+        MuiPaper: {
+            root: {
+                height: 'fit-content',
+                width: 'fit-content',
+                padding: '1vh'
+            }
+        },
+        MuiTypography: {
+            root: {
+                marginLeft: '1vw'
             }
         }
 

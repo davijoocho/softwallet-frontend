@@ -29,6 +29,7 @@
 .content-page{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 80vw;
     margin-top:2vh;
     margin-bottom: 2vh;

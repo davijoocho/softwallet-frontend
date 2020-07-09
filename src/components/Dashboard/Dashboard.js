@@ -9,9 +9,11 @@ import Liabilities from '../Liabilities/Liabilities.js';
 import Expenses from '../Expenses/Expenses.js';
 import './dashboard.css';
 
-const Dashboard = ({history, transactionList, signIn}) => {
+const Dashboard = ({history, signIn, userProfile}) => {
 
     const [selectedTab, setSelectedTab] = useState('Summary');
+
+    const [transactionList, setTransactionList] = useState([]);
 
     const categoriesList = [
         {
