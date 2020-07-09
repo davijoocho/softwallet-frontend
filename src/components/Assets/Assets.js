@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react'; 
-import {TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, TableFooter, TablePagination} from '@material-ui/core';
+import {TableContainer, Table, TableHead, TableRow, 
+TableBody, TableCell, Paper, TableFooter, 
+TablePagination, Checkbox, Typography, IconButton, TextField} from '@material-ui/core';
+import {AddCircle} from '@material-ui/icons';
+import './assets-style.css';
 
 const Assets = ({transactionList}) => {
 
@@ -31,7 +35,26 @@ const Assets = ({transactionList}) => {
 
     }, [transactionList]);
 
+    useEffect(() => {
+
+        console.log(assetsList)
+    })
+
     return ( 
+        <React.Fragment>
+
+        <Paper elevation={1}>
+        <Typography variant='h5'>Add Assets</Typography>
+        <form className='assets-form'> 
+            <TextField variant='outlined' placeholder='Enter Asset' label='Asset'/>
+            <TextField variant='outlined' placeholder='Enter Description' label='Description'/>
+            <TextField variant='outlined' placeholder='MM/DD/Y-Y' label='Date'/>
+            <TextField variant='outlined' placeholder='Enter Amount' label='Amount'/>
+            <IconButton>
+                <AddCircle/>
+            </IconButton>
+        </form>
+        </Paper>
 
         <TableContainer component={Paper}>
         <Table> 
@@ -82,6 +105,7 @@ const Assets = ({transactionList}) => {
             </TableFooter>
         </Table>
     </TableContainer>
+    </React.Fragment>
 
     );
 }
