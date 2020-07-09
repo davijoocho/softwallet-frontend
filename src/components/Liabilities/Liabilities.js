@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'; 
-import {TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, TableFooter, TablePagination} from '@material-ui/core';
-
+import {TableContainer, Table, TableHead, TableRow, TableBody,
+ TableCell, Paper, TableFooter, TablePagination, IconButton, TextField, Typography} from '@material-ui/core';
+import {AddCircle} from '@material-ui/icons';
+import './liabilities-style.css';
 
 const Liabilities = ({transactionList}) => {
 
@@ -34,8 +36,22 @@ const Liabilities = ({transactionList}) => {
 
 
     return(
+
+        <React.Fragment>
+        <Paper elevation={1}>
+        <Typography variant='h5'>Add Liabilities</Typography>
+        <form className='liabilities-form'> 
+            <TextField variant='outlined' placeholder='Enter Liability' label='Liability'/>
+            <TextField variant='outlined' placeholder='Enter Description' label='Description'/>
+            <TextField variant='outlined' placeholder='MM/DD/Y-Y' label='Date'/>
+            <TextField variant='outlined' placeholder='Enter Amount' label='Amount'/>
+            <IconButton>
+                <AddCircle/>
+            </IconButton>
+        </form>
+        </Paper>
         
-        <TableContainer component={Paper}>
+        <TableContainer elevation={1} component={Paper}>
         <Table> 
             <TableHead>
                 <TableRow>
@@ -84,6 +100,7 @@ const Liabilities = ({transactionList}) => {
             </TableFooter>
         </Table>
     </TableContainer>
+    </React.Fragment>
 
     );
 }
