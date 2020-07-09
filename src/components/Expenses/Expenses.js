@@ -1,5 +1,9 @@
 import React, {useState, useEffect} from 'react'; 
-import {TableContainer, Table, TableHead, TableRow, TableBody, TableCell, Paper, TableFooter, TablePagination} from '@material-ui/core';
+import {TableContainer, Table, TableHead, TableRow, TableBody, 
+    TableCell, Paper, TableFooter, TablePagination, Checkbox,
+    TextField, IconButton, Typography} from '@material-ui/core';
+import {AddCircle} from '@material-ui/icons';
+import './expenses-form.css';
 
 
 const Expenses = ({transactionList}) => {
@@ -33,6 +37,20 @@ const Expenses = ({transactionList}) => {
     }, [transactionList])
 
     return (
+        <React.Fragment>
+
+        <Paper elevation={1}>
+        <Typography variant='h5'>Add Expenses</Typography>
+        <form className='expenses-form'> 
+            <TextField variant='outlined' placeholder='Enter Expense' label='Expense'/>
+            <TextField variant='outlined' placeholder='Enter Description' label='Description'/>
+            <TextField variant='outlined' placeholder='MM/DD/Y-Y' label='Date'/>
+            <TextField variant='outlined' placeholder='Enter Amount' label='Amount'/>
+            <IconButton>
+                <AddCircle/>
+            </IconButton>
+        </form>
+        </Paper>
 
         <TableContainer component={Paper}>
         <Table> 
@@ -83,8 +101,7 @@ const Expenses = ({transactionList}) => {
             </TableFooter>
         </Table>
     </TableContainer>
-
-
+    </React.Fragment>
     );
 }
 
