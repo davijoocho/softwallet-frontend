@@ -4,36 +4,74 @@ import {TableContainer, Table, TableHead, TableRow, TableBody,
 import {AddCircle} from '@material-ui/icons';
 import './liabilities-style.css';
 
-const Liabilities = ({transactionList}) => {
+const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
 
     const [liabilitiesList, setLiabilitiesList] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [liabilityInformation, setLiabilityInformation] = useState({
+        transactionName: '', 
+        description: '', 
+        amount: 0,
+        date: ''
+    })
+
+    const {transactionName, description, amount, date} = liabilityInformation;
+
+    useEffect(() => {
+        const liabilitiesObjects = transactionList.filter(transaction => (
+            transaction.transaction_type === 'Liabilities'
+    ));
+        setLiabilitiesList(liabilitiesObjects);
+    }, [transactionList]);
     
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, liabilitiesList.length - page * rowsPerPage);
 
     const handleChangePage = (event, selectedPage) => {
-
         setPage(selectedPage);
-
     }
-    const handleChangeRowsPerPage = (event) => {
 
+    const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-
     }
 
-    useEffect(() => {
+    const handleInputChange = (prop) => (event) => {
+        setLiabilityInformation({...liabilityInformation, [prop]: event.target.value})
+    }
+    const handlePostRequest = async () => {
 
-        const liabilitiesObjects = transactionList.filter(transaction => (
-            transaction.transaction_type === 'Liabilities'
-    ));
+        try {
+            if(transactionName && description && amount && date > 0) {
+                let response = await fetch('http://localhost:3000/dashboard/liabilities', {
+                    method: 'post',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        email: userProfile.email, 
+                        transaction_type: 'Liabilities',
+                        transaction_name: transactionName, 
+                        description: description,
+                        amount: -amount, 
+                        date: date
+                    })
+                })
 
-        setLiabilitiesList(liabilitiesObjects);
+                let postedLiability = await response.json();
 
-    }, [transactionList]);
+                setTransactionList([...transactionList, {
+                    id: postedLiability.id,
+                    transaction_name: postedLiability.transaction_name, 
+                    transaction_type: postedLiability.transaction_type, 
+                    description: postedLiability.description,
+                    date: postedLiability.date,
+                    amount: postedLiability.amount
+                 }])
 
+              }
+           } catch (err) {
+               console.log(err)
+           }
+     }
 
     return(
 
@@ -41,11 +79,27 @@ const Liabilities = ({transactionList}) => {
         <Paper elevation={1}>
         <Typography variant='h5'>Add Liabilities</Typography>
         <form className='liabilities-form'> 
-            <TextField variant='outlined' placeholder='Enter Liability' label='Liability'/>
-            <TextField variant='outlined' placeholder='Enter Description' label='Description'/>
-            <TextField variant='outlined' placeholder='MM/DD/Y-Y' label='Date'/>
-            <TextField variant='outlined' placeholder='Enter Amount' label='Amount'/>
-            <IconButton>
+            <TextField 
+            onChange={handleInputChange('transactionName')}
+            variant='outlined' 
+            placeholder='Enter Liability' 
+            label='Liability'/>
+            <TextField 
+            onChange={handleInputChange('description')}
+            variant='outlined' 
+            placeholder='Enter Description' 
+            label='Description'/>
+            <TextField 
+            onChange={handleInputChange('date')}
+            variant='outlined' 
+            placeholder='MM/DD/Y-Y' 
+            label='Date'/>
+            <TextField 
+            onChange={handleInputChange('amount')}
+            variant='outlined' 
+            placeholder='Enter Amount' 
+            label='Amount'/>
+            <IconButton onClick={handlePostRequest}>
                 <AddCircle/>
             </IconButton>
         </form>
