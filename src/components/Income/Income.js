@@ -1,58 +1,116 @@
 import React, {useState, useEffect} from 'react'; 
 import {TableContainer, Table, TableHead, TableRow, TableBody, 
-    TableCell, Paper, TableFooter, TablePagination, Checkbox,
+    TableCell, Paper, TableFooter, TablePagination,
     Typography, TextField, IconButton} from '@material-ui/core';
 import {AddCircle} from '@material-ui/icons';
 import './income-style.css';
 
-const Income = ({transactionList}) => {
+const Income = ({transactionList, setTransactionList, userProfile}) => {
 
     const [incomeList, setIncomeList] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [incomeInformation, setIncomeInformation] = useState({
+        transactionName: '', 
+        description: '', 
+        amount: 0,
+        date: ''
+    })
+
+    const {transactionName, description, amount, date} = incomeInformation;
+
+    useEffect(() => {
+        const incomeObjects = transactionList.filter(transaction => (
+            transaction.transaction_type === 'Income'
+    ));
+        setIncomeList(incomeObjects);
+    }, [transactionList])
     
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, incomeList.length - page * rowsPerPage);
 
     const handleChangePage = (event, selectedPage) => {
-
         setPage(selectedPage);
-
     }
-    const handleChangeRowsPerPage = (event) => {
 
+    const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-
     }
 
-    useEffect(() => {
+    const handleInputChange = (prop) => (event) => {
+        setIncomeInformation({...incomeInformation, [prop]: event.target.value})
+    }
 
-        const incomeObjects = transactionList.filter(transaction => (
-            transaction.transaction_type === 'Income'
-    ));
+    const handlePostRequest = async () => {
 
-        setIncomeList(incomeObjects);
+        try{
 
-    }, [transactionList])
+           if(transactionName && description && date && amount > 0){
+            let response = await fetch('http://localhost:3000/dashboard/income', {
+               method: 'post',
+               headers: {'Content-Type': 'application/json'}, 
+               body: JSON.stringify({
+                   email: userProfile.email, 
+                   transaction_type: 'Income',
+                   transaction_name: transactionName, 
+                   description: description,
+                   amount: amount, 
+                   date: date
+               })
+             });
 
+             let postedIncome = await response.json();
+
+             setTransactionList([...transactionList, {
+                 id: postedIncome.id,
+                 transaction_name: postedIncome.transaction_name, 
+                 transaction_type: postedIncome.transaction_type, 
+                 description: postedIncome.description,
+                 date: postedIncome.date,
+                 amount: postedIncome.amount
+             }])
+             
+            }
+
+           } catch (err) {
+               console.log(err)
+           }
+
+
+    } 
 
     return(
         <React.Fragment>
-
-        <Paper elevation={1}>
+        <Paper elevation={2}>
         <Typography variant='h5'>Add Income</Typography>
         <form className='income-form'> 
-            <TextField variant='outlined' placeholder='Enter Income Source' label='Income Source'/>
-            <TextField variant='outlined' placeholder='Enter Description' label='Description'/>
-            <TextField variant='outlined' placeholder='MM/DD/Y-Y' label='Date'/>
-            <TextField variant='outlined' placeholder='Enter Amount' label='Amount'/>
-            <IconButton>
+            <TextField 
+            onChange={handleInputChange('transactionName')}
+            variant='outlined' 
+            placeholder='Enter Income Source' 
+            label='Income Source'/>
+            <TextField 
+            onChange={handleInputChange('description')}
+            variant='outlined' 
+            placeholder='Enter Description' 
+            label='Description'/>
+            <TextField 
+            onChange={handleInputChange('date')}
+            variant='outlined' 
+            placeholder='MM/DD/Y-Y' 
+            label='Date'/>
+            <TextField 
+            onChange={handleInputChange('amount')}
+            variant='outlined' 
+            placeholder='Enter Amount' 
+            label='Amount'/>
+            <IconButton onClick={handlePostRequest}>
                 <AddCircle/>
             </IconButton>
         </form>
         </Paper>
 
-        <TableContainer component={Paper}>
+        <TableContainer elevation={2} component={Paper}>
             <Table> 
                 <TableHead>
                     <TableRow>
