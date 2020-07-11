@@ -1,40 +1,80 @@
 import React, {useState, useEffect} from 'react'; 
 import {TableContainer, Table, TableHead, TableRow, TableBody, 
-    TableCell, Paper, TableFooter, TablePagination, Checkbox,
+    TableCell, Paper, TableFooter, TablePagination,
     TextField, IconButton, Typography} from '@material-ui/core';
 import {AddCircle} from '@material-ui/icons';
 import './expenses-form.css';
 
 
-const Expenses = ({transactionList}) => {
+const Expenses = ({transactionList, userProfile, setTransactionList}) => {
 
     const [expensesList, setExpensesList] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [expenseInformation, setExpenseInformation] = useState({
+        transactionName: '',
+        description: '',
+        date: '',
+        amount: 0
+    })
+
+    const {transactionName, description, date, amount} = expenseInformation;
+
+    useEffect(() => {
+        const expenseObjects = transactionList.filter(transaction => (
+            transaction.transaction_type === 'Expenses'
+    ));
+        setExpensesList(expenseObjects);
+    }, [transactionList])
     
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, expensesList.length - page * rowsPerPage);
 
     const handleChangePage = (event, selectedPage) => {
-
         setPage(selectedPage);
-
     }
     const handleChangeRowsPerPage = (event) => {
-
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-
     }
 
-    useEffect(() => {
+    const handleInputChange = (prop) => (event) => {
+        setExpenseInformation({...expenseInformation, [prop]: event.target.value})
+    }
 
-        const expenseObjects = transactionList.filter(transaction => (
-            transaction.transaction_type === 'Expenses'
-    ));
+    const handlePostRequest = async () => {
 
-        setExpensesList(expenseObjects);
+        try {
+            if(transactionName && description && amount && date > 0) {
+                let response = await fetch('http://localhost:3000/dashboard/expenses', {
+                    method: 'post',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        email: userProfile.email, 
+                        transaction_type: 'Expenses',
+                        transaction_name: transactionName, 
+                        description: description,
+                        amount: -amount, 
+                        date: date
+                    })
+                })
 
-    }, [transactionList])
+                let postedExpense = await response.json();
+
+                setTransactionList([...transactionList, {
+                    id: postedExpense.id,
+                    transaction_name: postedExpense.transaction_name, 
+                    transaction_type: postedExpense.transaction_type, 
+                    description: postedExpense.description,
+                    date: postedExpense.date,
+                    amount: postedExpense.amount
+                 }])
+
+              }
+              
+           } catch (err) {
+               console.log(err)
+           }
+     }
 
     return (
         <React.Fragment>
@@ -42,11 +82,27 @@ const Expenses = ({transactionList}) => {
         <Paper elevation={1}>
         <Typography variant='h5'>Add Expenses</Typography>
         <form className='expenses-form'> 
-            <TextField variant='outlined' placeholder='Enter Expense' label='Expense'/>
-            <TextField variant='outlined' placeholder='Enter Description' label='Description'/>
-            <TextField variant='outlined' placeholder='MM/DD/Y-Y' label='Date'/>
-            <TextField variant='outlined' placeholder='Enter Amount' label='Amount'/>
-            <IconButton>
+            <TextField 
+            onChange={handleInputChange('transactionName')} 
+            variant='outlined' 
+            placeholder='Enter Expense' 
+            label='Expense'/>
+            <TextField 
+            onChange={handleInputChange('description')} 
+            variant='outlined' 
+            placeholder='Enter Description' 
+            label='Description'/>
+            <TextField 
+            onChange={handleInputChange('date')} 
+            variant='outlined' 
+            placeholder='MM/DD/Y-Y' 
+            label='Date'/>
+            <TextField 
+            onChange={handleInputChange('amount')} 
+            variant='outlined' 
+            placeholder='Enter Amount' 
+            label='Amount'/>
+            <IconButton onClick={handlePostRequest}>
                 <AddCircle/>
             </IconButton>
         </form>
