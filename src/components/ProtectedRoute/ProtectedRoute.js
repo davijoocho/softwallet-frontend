@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 
 
@@ -12,6 +12,7 @@ const ProtectedRoute = ({component: Component, isSignedIn, signIn, userProfile, 
             isSignedIn === true ?
             <Component {...props} 
             signIn={signIn}
+            isSignedIn={isSignedIn}
             userProfile={userProfile}/> :
             <Redirect to='/signin'/>
          )}/>

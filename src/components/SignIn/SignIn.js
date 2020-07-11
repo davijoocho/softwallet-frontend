@@ -7,7 +7,7 @@ import './signin-style.css';
 
 
 
-const SignIn = ({history, signIn, setUserProfile}) => {
+const SignIn = ({history, signIn, isSignedIn, setUserProfile}) => {
 
     const [inputValues, setInputValues] = useState({
         email:'',

@@ -69,25 +69,25 @@ const SignUp = ({signIn, history, setUserProfile}) => {
      <div className='signup-root'> 
      <CssBaseline/>
       
-         <div className='sidebar'>
-            <div className='sidebar-container'>
-               <div> 
-                <Link to='/' className='softwallet-logo'> 
-                 SoftWallet
-                </Link>
-               </div>
-               <div> 
-                <div className='motto'>
-                  Take control of your personal finance today.
-                </div>
-               </div>
-               <div className='sidebar-top-image'></div> 
-               <div className='sidebar-bottom-image'></div>
-            </div> 
-         </div>     
+          <div className='sidebar'>
+           <div className='sidebar-container'>
+            <div> 
+            <Link to='/' className='softwallet-logo'> 
+            SoftWallet
+            </Link>
+            </div>
+            <div> 
+            <div className='motto'>
+             Take control of your personal finance today.
+            </div>
+            </div>
+            <div className='sidebar-top-image'></div> 
+           <div className='sidebar-bottom-image'></div>
+           </div> 
+          </div>     
 
 
-         <main className='signup-form-container'> 
+          <main className='signup-form-container'> 
 
        
 

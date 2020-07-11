@@ -55,7 +55,7 @@ const dashboardTheme = createMuiTheme({
         },
         MuiFormControl: {
             root: {
-                margin: '2vh 2vw',
+                margin: '2vh 1.75vw',
                 height:'8vh'
             }
         }, 
@@ -63,7 +63,8 @@ const dashboardTheme = createMuiTheme({
             root: {
                 height: 'fit-content',
                 width: 'fit-content',
-                padding: '1vh'
+                padding: '1vh',
+                paddingTop: '1.5vh'
             }
         },
         MuiTypography: {

@@ -9,10 +9,9 @@ import Liabilities from '../Liabilities/Liabilities.js';
 import Expenses from '../Expenses/Expenses.js';
 import './dashboard.css';
 
-const Dashboard = ({history, signIn, userProfile}) => {
+const Dashboard = ({history, signIn, isSignedIn, userProfile}) => {
 
     const [selectedTab, setSelectedTab] = useState('Summary');
-
     const [transactionList, setTransactionList] = useState([]);
 
     const categoriesList = [
@@ -58,6 +57,12 @@ const Dashboard = ({history, signIn, userProfile}) => {
         }
     ]
 
+    useEffect(() => {
+
+        console.log(transactionList)
+
+    }, [transactionList])
+
 
     return (
 
@@ -72,8 +77,8 @@ const Dashboard = ({history, signIn, userProfile}) => {
                 size='medium'
                 variant='contained'
                 onClick={() => {
-                    history.push('/signin');
                     signIn(false);
+                    history.push('/signin');
                   }}
             >
              Sign Out
@@ -104,10 +109,14 @@ const Dashboard = ({history, signIn, userProfile}) => {
 
            <main className='content-page'>
            <Route exact path='/dashboard' render={props => (<Summary {...props} transactionList={transactionList}/>)}/>
-           <Route exact path='/dashboard/income' render={props => (<Income {...props} transactionList={transactionList}/>)}/>
-           <Route exact path='/dashboard/assets' render={props => (<Assets {...props} transactionList={transactionList}/>)}/>
-           <Route exact path='/dashboard/liabilities' render={props => (<Liabilities {...props} transactionList={transactionList}/>)}/>
-           <Route exact path='/dashboard/expenses' render={props => (<Expenses {...props} transactionList={transactionList}/>)}/>
+           <Route exact path='/dashboard/income' render={props => (<Income {...props} transactionList={transactionList} 
+           userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
+           <Route exact path='/dashboard/assets' render={props => (<Assets {...props} transactionList={transactionList}
+           userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
+           <Route exact path='/dashboard/liabilities' render={props => (<Liabilities {...props} transactionList={transactionList}
+           userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
+           <Route exact path='/dashboard/expenses' render={props => (<Expenses {...props} transactionList={transactionList}
+           userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
            </main> 
            
            </div>
