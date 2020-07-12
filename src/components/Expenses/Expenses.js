@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {TableContainer, Table, TableHead, TableRow, TableBody, 
     TableCell, Paper, TableFooter, TablePagination,
     TextField, IconButton, Typography} from '@material-ui/core';
-import {AddCircle} from '@material-ui/icons';
+import {AddCircle, DeleteForever} from '@material-ui/icons';
 import './expenses-form.css';
 
 
@@ -76,6 +76,27 @@ const Expenses = ({transactionList, userProfile, setTransactionList}) => {
            }
      }
 
+     const handleDeleteRequest = async (transactionId) =>  {
+
+        try{
+            let response = await fetch('http://localhost:3000/dashboard/expenses', {
+                method: 'delete',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: userProfile.email,
+                    id: transactionId
+                })
+            })
+
+            let resultingTransactionList = await response.json()
+            setTransactionList(resultingTransactionList)
+    
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+
     return (
         <React.Fragment>
 
@@ -116,6 +137,7 @@ const Expenses = ({transactionList, userProfile, setTransactionList}) => {
                     <TableCell align='left'>Description</TableCell>
                     <TableCell align='left'>Date</TableCell>
                     <TableCell align='left'>Amount</TableCell>
+                    <TableCell/>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -130,6 +152,11 @@ const Expenses = ({transactionList, userProfile, setTransactionList}) => {
                      <TableCell align='left'>{expenses.description} </TableCell>
                      <TableCell align='left'>{expenses.date} </TableCell>
                      <TableCell align='left'>{expenses.amount} </TableCell>
+                     <TableCell>
+                        <IconButton onClick={() => handleDeleteRequest(expenses.id)}>
+                            <DeleteForever/>
+                        </IconButton>
+                    </TableCell>
                 </TableRow>
                 ))
                 }
