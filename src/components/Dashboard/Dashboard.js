@@ -9,10 +9,33 @@ import Liabilities from '../Liabilities/Liabilities.js';
 import Expenses from '../Expenses/Expenses.js';
 import './dashboard.css';
 
-const Dashboard = ({history, signIn, isSignedIn, userProfile}) => {
+const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
 
     const [selectedTab, setSelectedTab] = useState('Summary');
     const [transactionList, setTransactionList] = useState([]);
+
+    useEffect(() => {
+        const {email} = userProfile;
+
+        const getTransactionList = async() => {
+            try{
+            let response = await fetch(`http://localhost:3000/dashboard?user=${email}`, {
+               method: 'get',
+               headers: {'Content-Type': 'application/json'}
+            })
+
+            let resultingList = await response.json()
+            setTransactionList(resultingList)
+
+        } catch (err) {
+
+         console.log(err)
+
+    }}
+
+    getTransactionList()
+
+    }, [userProfile])
 
     const categoriesList = [
         {
@@ -57,12 +80,6 @@ const Dashboard = ({history, signIn, isSignedIn, userProfile}) => {
         }
     ]
 
-    useEffect(() => {
-
-        console.log(transactionList)
-
-    }, [transactionList])
-
 
     return (
 
@@ -79,6 +96,10 @@ const Dashboard = ({history, signIn, isSignedIn, userProfile}) => {
                 onClick={() => {
                     signIn(false);
                     history.push('/signin');
+                    setUserProfile({...userProfile,
+                        name:'',
+                        email:''
+                    })
                   }}
             >
              Sign Out
