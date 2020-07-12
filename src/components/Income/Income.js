@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {TableContainer, Table, TableHead, TableRow, TableBody, 
     TableCell, Paper, TableFooter, TablePagination,
     Typography, TextField, IconButton} from '@material-ui/core';
-import {AddCircle} from '@material-ui/icons';
+import {AddCircle, DeleteForever} from '@material-ui/icons';
 import './income-style.css';
 
 const Income = ({transactionList, setTransactionList, userProfile}) => {
@@ -16,8 +16,14 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
         amount: 0,
         date: ''
     })
-
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, incomeList.length - page * rowsPerPage);
     const {transactionName, description, amount, date} = incomeInformation;
+
+    useEffect(() => {
+
+        console.log(transactionList)
+
+    }) 
 
     useEffect(() => {
         const incomeObjects = transactionList.filter(transaction => (
@@ -26,8 +32,6 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
         setIncomeList(incomeObjects);
     }, [transactionList])
     
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, incomeList.length - page * rowsPerPage);
-
     const handleChangePage = (event, selectedPage) => {
         setPage(selectedPage);
     }
@@ -44,7 +48,6 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
     const handlePostRequest = async () => {
 
         try{
-
            if(transactionName && description && date && amount > 0){
             let response = await fetch('http://localhost:3000/dashboard/income', {
                method: 'post',
@@ -69,15 +72,35 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
                  date: postedIncome.date,
                  amount: postedIncome.amount
              }])
-             
             }
-
-           } catch (err) {
-               console.log(err)
-           }
-
-
+         } catch (err) {
+            console.log(err)
+         }
     } 
+
+    const handleDeleteRequest = async (transactionId) =>  {
+
+        try{
+
+            let response = await fetch('http://localhost:3000/dashboard/income', {
+                method: 'delete',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: userProfile.email,
+                    id: transactionId
+                })
+            })
+
+            let resultingTransactionList = await response.json()
+            setTransactionList(resultingTransactionList)
+            
+        } catch(err) {
+
+            console.log(err)
+
+        }
+
+    }
 
     return(
         <React.Fragment>
@@ -118,6 +141,7 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
                         <TableCell align='left'>Description</TableCell>
                         <TableCell align='left'>Date</TableCell>
                         <TableCell align='left'>Amount</TableCell>
+                        <TableCell/>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -127,11 +151,17 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
                         incomeList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) :
                         incomeList
                     ).map(income => (
+
                     <TableRow key={income.id}>
                          <TableCell component='th' scope='row'>{income.transaction_name}</TableCell>
                          <TableCell align='left'>{income.description} </TableCell>
                          <TableCell align='left'>{income.date} </TableCell>
                          <TableCell align='left'>{income.amount} </TableCell>
+                         <TableCell>
+                             <IconButton onClick={() => handleDeleteRequest(income.id)}>
+                                 <DeleteForever/>
+                             </IconButton>
+                         </TableCell>
                     </TableRow>
                     ))
                     }
