@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'; 
 import {TableContainer, Table, TableHead, TableRow, TableBody,
  TableCell, Paper, TableFooter, TablePagination, IconButton, TextField, Typography} from '@material-ui/core';
-import {AddCircle} from '@material-ui/icons';
+import {AddCircle, DeleteForever} from '@material-ui/icons';
 import './liabilities-style.css';
 
 const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
@@ -73,6 +73,27 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
            }
      }
 
+     const handleDeleteRequest = async (transactionId) =>  {
+
+        try{
+            let response = await fetch('http://localhost:3000/dashboard/liabilities', {
+                method: 'delete',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: userProfile.email,
+                    id: transactionId
+                })
+            })
+
+            let resultingTransactionList = await response.json()
+            setTransactionList(resultingTransactionList)
+            
+        } catch(err) {
+            console.log(err)
+        }
+
+    }
+
     return(
 
         <React.Fragment>
@@ -113,6 +134,7 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
                     <TableCell align='left'>Description</TableCell>
                     <TableCell align='left'>Date</TableCell>
                     <TableCell align='left'>Amount</TableCell>
+                    <TableCell/>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -127,6 +149,11 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
                      <TableCell align='left'>{liabilities.description} </TableCell>
                      <TableCell align='left'>{liabilities.date} </TableCell>
                      <TableCell align='left'>{liabilities.amount} </TableCell>
+                     <TableCell>
+                        <IconButton onClick={() => handleDeleteRequest(liabilities.id)}>
+                            <DeleteForever/>
+                        </IconButton>
+                    </TableCell>
                 </TableRow>
                 ))
                 }
