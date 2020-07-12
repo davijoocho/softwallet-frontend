@@ -15,7 +15,7 @@ import './App.css';
 
 const App = () => {
 
- const [isSignedIn, setIsSignedIn] = useState(true);
+ const [isSignedIn, setIsSignedIn] = useState(false);
 
  const [userProfile, setUserProfile] = useState({
    name: '',
@@ -26,13 +26,13 @@ const App = () => {
   <Router> 
    <Switch> 
 
+   <React.Fragment>
+
       <Route exact path='/' component={Home}/> 
 
-      <React.Fragment>
-
       <ThemeProvider theme={dashboardTheme}>
-      <ProtectedRoute component={Dashboard} u
-      serProfile={userProfile} isSignedIn={isSignedIn} signIn={setIsSignedIn} 
+      <ProtectedRoute component={Dashboard} 
+      setUserProfile={setUserProfile} isSignedIn={isSignedIn} signIn={setIsSignedIn} 
       userProfile={userProfile} path='/dashboard'/>
       
       <ThemeProvider theme={signInTheme}> 
