@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {TableContainer, Table, TableHead, TableRow, 
 TableBody, TableCell, Paper, TableFooter, 
 TablePagination, Typography, IconButton, TextField} from '@material-ui/core';
-import {AddCircle} from '@material-ui/icons';
+import {AddCircle, DeleteForever} from '@material-ui/icons';
 import './assets-style.css';
 
 const Assets = ({transactionList, userProfile, setTransactionList}) => {
@@ -75,6 +75,26 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
         }
     }
 
+    const handleDeleteRequest = async (transactionId) =>  {
+
+        try{
+            let response = await fetch('http://localhost:3000/dashboard/assets', {
+                method: 'delete',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email: userProfile.email,
+                    id: transactionId
+                })
+            })
+
+            let resultingTransactionList = await response.json()
+            setTransactionList(resultingTransactionList)
+    
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
     return ( 
         <React.Fragment>
 
@@ -115,6 +135,7 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
                     <TableCell align='left'>Description</TableCell>
                     <TableCell align='left'>Date</TableCell>
                     <TableCell align='left'>Amount</TableCell>
+                    <TableCell/>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -129,6 +150,11 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
                      <TableCell align='left'>{assets.description} </TableCell>
                      <TableCell align='left'>{assets.date} </TableCell>
                      <TableCell align='left'>{assets.amount} </TableCell>
+                     <TableCell>
+                        <IconButton onClick={() => handleDeleteRequest(assets.id)}>
+                            <DeleteForever/>
+                        </IconButton>
+                    </TableCell>
                 </TableRow>
                 ))
                 }
