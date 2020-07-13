@@ -2,17 +2,26 @@ import React, {useState, useEffect} from 'react';
 import {Route} from 'react-router-dom';
 import {Drawer, List, ListItem, ListItemIcon, ListItemText, CssBaseline, AppBar, Typography, Button} from '@material-ui/core';
 import {AccountBalance, AttachMoney, HomeWork, CreditCard, AccountBalanceWallet} from '@material-ui/icons';
+import {PlaidLink} from 'react-plaid-link';
 import Summary from '../Summary/Summary.js';
 import Income from '../Income/Income.js';
 import Assets from '../Assets/Assets.js';
 import Liabilities from '../Liabilities/Liabilities.js';
 import Expenses from '../Expenses/Expenses.js';
 import './dashboard.css';
+require('dotenv').config()
+
+
+
 
 const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
 
     const [selectedTab, setSelectedTab] = useState('Summary');
     const [transactionList, setTransactionList] = useState([]);
+
+    useEffect(() => {
+        console.log(transactionList)
+    })
 
     useEffect(() => {
         const {email} = userProfile;
@@ -80,6 +89,34 @@ const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
         }
     ]
 
+    const handleOnSuccess = async (public_token, metadata) => {
+        try {
+            let response = await fetch('http://localhost:3000/get_access_token', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    public_token: public_token,
+                    email: userProfile.email
+                })
+            })
+
+            let postedBalance = await response.json()
+
+            setTransactionList([...transactionList, {
+                id: postedBalance.id,
+                transaction_name: postedBalance.transaction_name, 
+                transaction_type: postedBalance.transaction_type, 
+                description: postedBalance.description,
+                date: postedBalance.date,
+                amount: postedBalance.amount
+            }])
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
 
     return (
 
@@ -124,6 +161,21 @@ const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
                     );
                 })
                 }
+
+                <ListItem>
+                <PlaidLink 
+                clientName='SoftWallet'
+                env='development'
+                product={['auth']}
+                publicKey='93c1157fad4ffb730b54df5c36ac83'
+                onSuccess={handleOnSuccess}
+                countryCodes={['US']}
+                className='plaid-connect'
+                >
+                Link Your Bank Account
+                </PlaidLink>
+                </ListItem>
+
             </List>
             </Drawer>
             </div>
