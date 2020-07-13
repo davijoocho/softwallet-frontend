@@ -97,7 +97,7 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
     return(
 
         <React.Fragment>
-        <Paper elevation={1}>
+        <Paper elevation={2}>
         <Typography variant='h5'>Add Liabilities</Typography>
         <form className='liabilities-form'> 
             <TextField 
@@ -113,7 +113,7 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
             <TextField 
             onChange={handleInputChange('date')}
             variant='outlined' 
-            placeholder='MM/DD/Y-Y' 
+            placeholder='MM-DD-YYYY' 
             label='Date'/>
             <TextField 
             onChange={handleInputChange('amount')}
@@ -126,7 +126,7 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
         </form>
         </Paper>
         
-        <TableContainer elevation={1} component={Paper}>
+        <TableContainer elevation={2} component={Paper}>
         <Table> 
             <TableHead>
                 <TableRow>

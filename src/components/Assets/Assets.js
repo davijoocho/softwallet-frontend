@@ -98,7 +98,7 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
     return ( 
         <React.Fragment>
 
-        <Paper elevation={1}>
+        <Paper elevation={2}>
         <Typography variant='h5'>Add Assets</Typography>
         <form className='assets-form'> 
             <TextField 
@@ -114,7 +114,7 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
             <TextField 
             onChange={handleInputChange('date')}
             variant='outlined'
-            placeholder='MM/DD/Y-Y' 
+            placeholder='MM-DD-YYYY' 
             label='Date'/>
             <TextField 
             onChange={handleInputChange('amount')}
@@ -127,7 +127,7 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
         </form>
         </Paper>
 
-        <TableContainer component={Paper}>
+        <TableContainer elevation={2} component={Paper}>
         <Table> 
             <TableHead>
                 <TableRow>

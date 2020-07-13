@@ -26,10 +26,10 @@ const App = () => {
   <Router> 
    <Switch> 
 
-   <React.Fragment>
-
       <Route exact path='/' component={Home}/> 
 
+      <React.Fragment>
+    
       <ThemeProvider theme={dashboardTheme}>
       <ProtectedRoute component={Dashboard} 
       setUserProfile={setUserProfile} isSignedIn={isSignedIn} signIn={setIsSignedIn} 

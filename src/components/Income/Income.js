@@ -120,7 +120,7 @@ const Income = ({transactionList, setTransactionList, userProfile}) => {
             <TextField 
             onChange={handleInputChange('date')}
             variant='outlined' 
-            placeholder='MM/DD/Y-Y' 
+            placeholder='MM-DD-YYYY'
             label='Date'/>
             <TextField 
             onChange={handleInputChange('amount')}

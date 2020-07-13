@@ -64,7 +64,8 @@ const dashboardTheme = createMuiTheme({
                 height: 'fit-content',
                 width: 'fit-content',
                 padding: '1vh',
-                paddingTop: '1.5vh'
+                paddingTop: '1.5vh',
+                paddingBottom: '1.5vh'
             }
         },
         MuiTypography: {

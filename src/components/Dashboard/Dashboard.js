@@ -9,7 +9,7 @@ import Assets from '../Assets/Assets.js';
 import Liabilities from '../Liabilities/Liabilities.js';
 import Expenses from '../Expenses/Expenses.js';
 import './dashboard.css';
-require('dotenv').config()
+
 
 
 

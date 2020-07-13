@@ -37,3 +37,21 @@
     margin-right: 1.4vw;
     margin-left:2vw;
 }
+
+.plaid-connect {
+    box-shadow: 0.25vw 0.5vh 2px #D3D3D3;
+    cursor: pointer;
+    font-family: 'Handlee';
+    font-size: 1.15rem;
+    outline-style: none;
+    margin-top: 2vh;
+    height: 6vh;
+    width: 14vw;
+    transition: 0.25s;
+}
+
+.plaid-connect:hover {
+
+    box-shadow: 0.22vw 0.45vh 2px #B3B3B3;
+
+}
