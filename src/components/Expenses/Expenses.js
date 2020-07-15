@@ -44,7 +44,6 @@ const Expenses = ({transactionList, userProfile, setTransactionList}) => {
     const handlePostRequest = async () => {
 
         try {
-            if(transactionName && description && amount && date > 0) {
                 let response = await fetch('http://localhost:3000/dashboard/expenses', {
                     method: 'post',
                     headers: {'Content-Type': 'application/json'},
@@ -68,8 +67,6 @@ const Expenses = ({transactionList, userProfile, setTransactionList}) => {
                     date: postedExpense.date,
                     amount: postedExpense.amount
                  }])
-
-              }
               
            } catch (err) {
                console.log(err)

@@ -43,7 +43,6 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
 
     const handlePostRequest = async () => {
         try {
-            if(transactionName && description && date && amount > 0) {
                 let response = await fetch('http://localhost:3000/dashboard/assets', {
                     method: 'post', 
                     headers: {'Content-Type': 'application/json'}, 
@@ -67,8 +66,6 @@ const Assets = ({transactionList, userProfile, setTransactionList}) => {
                     date: postedAssets.date,
                     amount: postedAssets.amount
                 }])
-
-            }
 
         } catch (err) {
             console.log(err)

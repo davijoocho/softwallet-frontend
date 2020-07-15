@@ -42,7 +42,7 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
     const handlePostRequest = async () => {
 
         try {
-            if(transactionName && description && amount && date > 0) {
+             
                 let response = await fetch('http://localhost:3000/dashboard/liabilities', {
                     method: 'post',
                     headers: {'Content-Type': 'application/json'},
@@ -67,11 +67,11 @@ const Liabilities = ({transactionList, setTransactionList, userProfile}) => {
                     amount: postedLiability.amount
                  }])
 
-              }
-           } catch (err) {
+              } catch (err) {
                console.log(err)
            }
-     }
+        }
+        
 
      const handleDeleteRequest = async (transactionId) =>  {
 

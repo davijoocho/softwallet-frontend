@@ -7,7 +7,7 @@ import './signin-style.css';
 
 
 
-const SignIn = ({history, signIn, isSignedIn, setUserProfile}) => {
+const SignIn = ({history, signIn, setUserProfile}) => {
 
     const [inputValues, setInputValues] = useState({
         email:'',
@@ -40,7 +40,7 @@ const SignIn = ({history, signIn, isSignedIn, setUserProfile}) => {
           })
         });
 
-        const verification = await response.json()
+        let verification = await response.json()
 
         if(verification.name) {
 
@@ -76,7 +76,7 @@ const SignIn = ({history, signIn, isSignedIn, setUserProfile}) => {
               </NavLink>
             </div>
             <div className='motto'>
-            ake control of your personal finance today.
+            Take control of your personal finance today.
             </div>
             <div className='signin-sidebar-top-image'></div>
             <div className='signin-sidebar-bottom-image'></div>

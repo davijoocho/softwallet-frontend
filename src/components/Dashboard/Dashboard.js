@@ -12,34 +12,30 @@ import './dashboard.css';
 
 
 
-
-
 const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
 
     const [selectedTab, setSelectedTab] = useState('Summary');
     const [transactionList, setTransactionList] = useState([]);
+    const [bankBalance, setBankBalance] = useState(0);
 
     useEffect(() => {
+        console.log(bankBalance)
         console.log(transactionList)
     })
 
     useEffect(() => {
         const {email} = userProfile;
-
         const getTransactionList = async() => {
             try{
             let response = await fetch(`http://localhost:3000/dashboard?user=${email}`, {
                method: 'get',
                headers: {'Content-Type': 'application/json'}
             })
-
             let resultingList = await response.json()
             setTransactionList(resultingList)
 
         } catch (err) {
-
          console.log(err)
-
     }}
 
     getTransactionList()
@@ -102,14 +98,8 @@ const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
 
             let postedBalance = await response.json()
 
-            setTransactionList([...transactionList, {
-                id: postedBalance.id,
-                transaction_name: postedBalance.transaction_name, 
-                transaction_type: postedBalance.transaction_type, 
-                description: postedBalance.description,
-                date: postedBalance.date,
-                amount: postedBalance.amount
-            }])
+            setBankBalance(postedBalance.current)
+            //check 
 
         } catch (err) {
             console.log(err)
@@ -120,12 +110,14 @@ const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
 
     return (
 
+
+            
             <div className='dashboard-root'>
             <CssBaseline/>
 
             <nav className='app-bar'>
             <AppBar position='fixed'>
-            <Typography variant='h4'>Dashboard</Typography>
+            <Typography variant='h4'>{`${userProfile.name}'s Dashboard`}</Typography>
             <Button
                 color='secondary'
                 size='medium'
@@ -172,7 +164,7 @@ const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
                 countryCodes={['US']}
                 className='plaid-connect'
                 >
-                Link Your Bank Account
+                Connect Bank Account
                 </PlaidLink>
                 </ListItem>
 
@@ -181,13 +173,18 @@ const Dashboard = ({history, signIn, userProfile, setUserProfile}) => {
             </div>
 
            <main className='content-page'>
-           <Route exact path='/dashboard' render={props => (<Summary {...props} transactionList={transactionList}/>)}/>
+           <Route exact path='/dashboard' render={props => (<Summary {...props} bankBalance={bankBalance} 
+           setBankBalance={setBankBalance} userProfile={userProfile} transactionList={transactionList}/>)}/>
+
            <Route exact path='/dashboard/income' render={props => (<Income {...props} transactionList={transactionList} 
            userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
+
            <Route exact path='/dashboard/assets' render={props => (<Assets {...props} transactionList={transactionList}
            userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
+
            <Route exact path='/dashboard/liabilities' render={props => (<Liabilities {...props} transactionList={transactionList}
            userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
+
            <Route exact path='/dashboard/expenses' render={props => (<Expenses {...props} transactionList={transactionList}
            userProfile={userProfile} setTransactionList={setTransactionList}/>)}/>
            </main> 

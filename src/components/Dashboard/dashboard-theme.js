@@ -3,6 +3,7 @@ import {createMuiTheme} from '@material-ui/core/styles';
 const dashboardTheme = createMuiTheme({
 
     typography: {
+        fontFamily: 'Roboto',
         h5: {
             marginLeft: '2vw'
         }
