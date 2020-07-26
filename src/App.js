@@ -15,7 +15,7 @@ import './App.css';
 
 const App = () => {
 
- const [isSignedIn, setIsSignedIn] = useState(true);
+ const [isSignedIn, setIsSignedIn] = useState(false);
 
  const [userProfile, setUserProfile] = useState({
    name: '',
