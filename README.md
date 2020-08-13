@@ -25,10 +25,3 @@ A web application for managing your budget
      * Plaid 
   
 
-## Screenshots
-
-<img src="./src/readme/signin-page.png" width="600" height="340"> 
-<img src="./src/readme/signup-page.png" width="600" height="340"> 
-<img src="./src/readme/dashboard-expenses.png" width="600" height="340">
-<img src="./src/readme/dashboard-page.png" width="600" height="340">
-
