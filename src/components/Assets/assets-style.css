@@ -1,0 +1,6 @@
+.assets-form {
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    width: 76vw;
+}

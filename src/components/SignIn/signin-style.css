@@ -1,0 +1,88 @@
+.signin-root{
+    display: flex; 
+    flex-direction: row;
+    height: 100vh;
+}
+
+.signin-sidebar{
+    background-color: #A4DDE0;
+    padding: 2vh 2.5vw;
+    width: 35vw;
+}
+
+.signin-sidebar-container {
+    display: flex;
+    flex-direction: column; 
+}
+
+.softwallet-logo {
+    color: #FFFFFF; 
+    font-size: 38vw;
+    font-size: 3.5vw;
+    font-family: 'Handlee', cursive;
+    letter-spacing: 0.04em;
+    text-shadow: 0px 4px 4px #8C8C8C;
+    text-decoration: none;
+    transition: linear;
+    margin-top: 2vh;
+}
+
+.softwallet-logo:hover{
+    text-shadow: 2px 5px 5px #616161;
+}
+
+.motto {
+    font-family: 'Alice';
+    font-size: 6vh;
+    font-size: 2vw;
+    color: #FFFFFF;
+    text-shadow: 0px 3px 3px #A7A7A7;
+    margin-top: 3vh;
+}
+
+.signin-sidebar-top-image {
+    background-image: url('./signin-top-image.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 30vh;
+    width: 26vw;
+    margin-bottom: 2vh;
+    margin-top: 6vh;
+    
+}
+
+.signin-sidebar-bottom-image {
+    background-image: url('./signin-bottom-image.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 29vh;
+    width: 27vw;
+    margin-top: 2vh;
+    margin-left: 6vw;
+}
+
+.signin-form-container {
+    background-color: #FFFFFF;
+    width: 65vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signin-form {
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+    height: 75vh;
+    margin-left: 1vw;
+    margin-bottom: 6vh;
+}
+
+.redirect-to-signup {
+    margin-bottom: 10vh;
+    margin-left: 42vw; 
+}
